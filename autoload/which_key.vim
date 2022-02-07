@@ -305,8 +305,8 @@ function! s:execute_native_fallback(append) abort
   let l:fallback_cmd = s:vis.l:reg.s:count.substitute(s:which_key_trigger, ' ', '', '')
   if (a:append)
     let l:fallback_cmd = l:fallback_cmd.get(s:, 'cur_char', '')
-    echom l:fallback_cmd
   endif
+  echom l:fallback_cmd
   try
     call feedkeys(l:fallback_cmd, 'n')
   catch
