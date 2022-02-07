@@ -43,6 +43,8 @@ function! s:handle_char_on_start_is_ok(c) abort
   endif
 endfunction
 
+" prefixは引数．例えば, mや<space>.
+" bangはエクスクラメーションマーク!
 function! which_key#start(vis, bang, prefix) " {{{
   let s:vis = a:vis ? 'gv' : ''
   let s:count = v:count != 0 ? v:count : ''
@@ -297,11 +299,13 @@ function! s:handle_input(input) " {{{
   endif
 endfunction
 
+" MARK: ここで実行される
 function! s:execute_native_fallback(append) abort
   let l:reg = s:get_register()
   let l:fallback_cmd = s:vis.l:reg.s:count.substitute(s:which_key_trigger, ' ', '', '')
   if (a:append)
     let l:fallback_cmd = l:fallback_cmd.get(s:, 'cur_char', '')
+    echom l:fallback_cmd
   endif
   try
     call feedkeys(l:fallback_cmd, 'n')
